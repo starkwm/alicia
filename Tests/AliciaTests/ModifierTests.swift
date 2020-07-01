@@ -1,7 +1,7 @@
 import Carbon
 import XCTest
 
-import class Alicia.Modifier
+@testable import Alicia
 
 final class ModifierTests: XCTestCase {
     func testModifierFlagsShift() {

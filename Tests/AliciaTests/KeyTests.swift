@@ -1,7 +1,7 @@
 import Carbon
 import XCTest
 
-import class Alicia.Key
+@testable import Alicia
 
 final class KeyTests: XCTestCase {
     func testKeyCodeRelocatableAlphas() {
