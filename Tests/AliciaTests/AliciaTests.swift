@@ -1,5 +1,5 @@
-import XCTest
 @testable import Alicia
+import XCTest
 
 final class AliciaTests: XCTestCase {
     func testExample() {
