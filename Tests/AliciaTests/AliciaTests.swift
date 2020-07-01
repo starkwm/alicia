@@ -2,5 +2,4 @@ import XCTest
 
 @testable import Alicia
 
-final class AliciaTests: XCTestCase {
-}
+final class AliciaTests: XCTestCase {}
