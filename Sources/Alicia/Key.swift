@@ -24,7 +24,7 @@ private let relocatableKeyCodes = [
     kVK_ANSI_Minus,
 ]
 
-let keyToCode = [
+public let keyToCode = [
     "space": kVK_Space,
     "tab": kVK_Tab,
     "return": kVK_Return,
