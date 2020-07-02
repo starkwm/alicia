@@ -48,8 +48,7 @@ public class Alicia {
             return OSStatus(eventNotHandledErr)
         }
 
-        // TODO: add handler callback function for shortcut...
-        print("DEBUG: shortcut: \(shortcut.identifier)")
+        shortcut.handler()
 
         return noErr
     }
