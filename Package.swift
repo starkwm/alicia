@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "Alicia",
+    name: "alicia",
     platforms: [
         .macOS(.v10_14),
     ],
