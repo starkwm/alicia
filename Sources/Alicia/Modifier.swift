@@ -1,6 +1,6 @@
 import Carbon
 
-let modifierIdentifiers = [
+public let modifierIdentifiers = [
     "shift",
     "ctrl", "control",
     "alt", "opt", "option",
