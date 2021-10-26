@@ -1,6 +1,6 @@
 import Carbon
 
-public class Alicia {
+public enum Alicia {
     final class ShortcutBox {
         let identifier: UUID
 
@@ -44,7 +44,7 @@ public class Alicia {
             return err
         }
 
-        guard hotKeyID.signature == signature, let shortcut = self.shortcut(for: hotKeyID.id) else {
+        guard hotKeyID.signature == signature, let shortcut = shortcut(for: hotKeyID.id) else {
             return OSStatus(eventNotHandledErr)
         }
 
@@ -91,7 +91,7 @@ public class Alicia {
     }
 
     public static func unregister(shortcut: Shortcut) {
-        guard let box = self.box(for: shortcut) else {
+        guard let box = box(for: shortcut) else {
             return
         }
 

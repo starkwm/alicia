@@ -65,7 +65,7 @@ public let keyToCode = [
     "delete": kVK_Delete,
 ]
 
-public class Key {
+public enum Key {
     private static let relocatableKeys: [String: Int] = {
         var keys = [String: Int]()
 

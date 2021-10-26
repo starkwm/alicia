@@ -8,7 +8,7 @@ public let modifierIdentifiers = [
     "hyper",
 ]
 
-public class Modifier {
+public enum Modifier {
     public static func flags(for modifiers: [String]) -> UInt32 {
         let mods = modifiers.map { $0.lowercased() }
 
