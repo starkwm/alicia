@@ -16,7 +16,7 @@ public enum Alicia {
         }
     }
 
-    private static let signature = UTGetOSTypeFromString("ALCA" as CFString)
+    private static let signature = "alca".utf16.reduce(0) { ($0 << 8) + OSType($1) }
 
     private static var shortcuts = [UInt32: ShortcutBox]()
     private static var shortcutsCount: UInt32 = 0
