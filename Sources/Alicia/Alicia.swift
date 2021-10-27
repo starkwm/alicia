@@ -124,11 +124,9 @@ public enum Alicia {
     }
 
     public static func stop() {
-        if eventHandler == nil {
-            return
+        if eventHandler != nil {
+            RemoveEventHandler(eventHandler)
         }
-
-        RemoveEventHandler(eventHandler)
     }
 
     private static func shortcut(for id: UInt32) -> Shortcut? {
