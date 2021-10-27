@@ -139,11 +139,7 @@ public enum Alicia {
     }
 
     private static func box(for shortcut: Shortcut) -> ShortcutBox? {
-        for box in shortcuts.values where box.identifier == shortcut.identifier {
-            return box
-        }
-
-        return nil
+        return shortcuts.values.first(where: { $0.identifier == shortcut.identifier })
     }
 }
 
