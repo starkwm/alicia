@@ -111,6 +111,23 @@ final class KeyTests: XCTestCase {
 
             "escape": kVK_Escape,
             "delete": kVK_Delete,
+
+            "grave": kVK_ANSI_Grave,
+            "backtick": kVK_ANSI_Grave,
+            "minus": kVK_ANSI_Minus,
+            "dash": kVK_ANSI_Minus,
+            "equal": kVK_ANSI_Equal,
+            "equsls": kVK_ANSI_Equal,
+            "leftbracket": kVK_ANSI_LeftBracket,
+            "rightbracket": kVK_ANSI_RightBracket,
+            "semicolon": kVK_ANSI_Semicolon,
+            "quote": kVK_ANSI_Quote,
+            "singlequote": kVK_ANSI_Quote,
+            "backslash": kVK_ANSI_Backslash,
+            "period": kVK_ANSI_Period,
+            "comma": kVK_ANSI_Comma,
+            "slash": kVK_ANSI_Slash,
+            "forwardslash": kVK_ANSI_Slash,
         ].forEach { key, val in
             XCTAssertEqual(Key.code(for: key), UInt32(val))
         }
