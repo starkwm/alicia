@@ -56,17 +56,17 @@ final class KeyTests: XCTestCase {
 
     func testKeyCodeRelocatableOthers() {
         [
-            ".": kVK_ANSI_Period,
-            "'": kVK_ANSI_Quote,
+            "`": kVK_ANSI_Grave,
+            "-": kVK_ANSI_Minus,
+            "=": kVK_ANSI_Equal,
+            "[": kVK_ANSI_LeftBracket,
             "]": kVK_ANSI_RightBracket,
             ";": kVK_ANSI_Semicolon,
-            "/": kVK_ANSI_Slash,
+            "'": kVK_ANSI_Quote,
             "\\": kVK_ANSI_Backslash,
             ",": kVK_ANSI_Comma,
-            "=": kVK_ANSI_Equal,
-            "`": kVK_ANSI_Grave,
-            "[": kVK_ANSI_LeftBracket,
-            "-": kVK_ANSI_Minus,
+            ".": kVK_ANSI_Period,
+            "/": kVK_ANSI_Slash,
         ].forEach { key, val in
             XCTAssertEqual(Key.code(for: key), UInt32(val))
         }
