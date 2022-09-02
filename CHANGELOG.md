@@ -9,3 +9,7 @@ adheres to [Semantic Versioning][semver].
 [semver]: https://semver.org/spec/v2.0.0.html
 
 ## [Unreleased]
+
+### Added
+
+- Added additional `keyToCode` mappings to give nicer names to some keys
