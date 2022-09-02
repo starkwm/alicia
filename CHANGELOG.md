@@ -10,6 +10,8 @@ adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
 
+## [2.0.2] - 2022-09-02
+
 ### Added
 
 - Added additional `keyToCode` mappings to give nicer names to some keys
