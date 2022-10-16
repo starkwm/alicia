@@ -28,6 +28,7 @@ public let keyToCode = [
     "space": kVK_Space,
     "tab": kVK_Tab,
     "return": kVK_Return,
+    "enter": kVK_Return,
 
     "capslock": kVK_CapsLock,
 
@@ -62,6 +63,7 @@ public let keyToCode = [
     "f20": kVK_F20,
 
     "escape": kVK_Escape,
+    "esc": kVK_Escape,
     "delete": kVK_Delete,
 
     "grave": kVK_ANSI_Grave,

@@ -77,6 +77,8 @@ final class KeyTests: XCTestCase {
             "space": kVK_Space,
             "tab": kVK_Tab,
             "return": kVK_Return,
+            "enter": kVK_Return,
+
             "capslock": kVK_CapsLock,
 
             "pageup": kVK_PageUp,
@@ -110,6 +112,7 @@ final class KeyTests: XCTestCase {
             "f20": kVK_F20,
 
             "escape": kVK_Escape,
+            "esc": kVK_Escape,
             "delete": kVK_Delete,
 
             "grave": kVK_ANSI_Grave,
