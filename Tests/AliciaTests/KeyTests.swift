@@ -117,7 +117,7 @@ final class KeyTests: XCTestCase {
             "minus": kVK_ANSI_Minus,
             "dash": kVK_ANSI_Minus,
             "equal": kVK_ANSI_Equal,
-            "equsls": kVK_ANSI_Equal,
+            "equals": kVK_ANSI_Equal,
             "leftbracket": kVK_ANSI_LeftBracket,
             "rightbracket": kVK_ANSI_RightBracket,
             "semicolon": kVK_ANSI_Semicolon,
