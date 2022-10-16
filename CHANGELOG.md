@@ -12,7 +12,7 @@ adheres to [Semantic Versioning][semver].
 
 ### Fixed
 
-- Fixed typo for the string "equals" (#2)
+- Fixed typo for the string "equals" ([#2](https://github.com/starkwm/alicia/issues/2))
 
 ## [2.0.2] - 2022-09-02
 
