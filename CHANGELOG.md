@@ -10,6 +10,10 @@ adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
 
+### Added
+
+- Added additional strings for `escape` and `return` ([#3](https://github.com/starkwm/alicia/issues/3))
+
 ### Fixed
 
 - Fixed typo for the string "equals" ([#2](https://github.com/starkwm/alicia/issues/2))
