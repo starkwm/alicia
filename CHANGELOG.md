@@ -10,6 +10,10 @@ adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed typo for the string "equals" (#2)
+
 ## [2.0.2] - 2022-09-02
 
 ### Added
