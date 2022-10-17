@@ -10,6 +10,8 @@ adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
 
+## [2.0.3] - 2022-10-17
+
 ### Added
 
 - Added additional strings for `escape` and `return` ([#3](https://github.com/starkwm/alicia/issues/3))
