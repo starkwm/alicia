@@ -1,32 +1,32 @@
 import Carbon
 
 public let modifierIdentifiers = [
-    "shift",
-    "ctrl", "control",
-    "alt", "opt", "option",
-    "cmd", "command",
+    "⇧", "shift",
+    "⌃", "ctrl", "control",
+    "⌥", "alt", "opt", "option",
+    "⌘", "cmd", "command",
     "hyper",
 ]
 
 public enum Modifier {
     public static func flags(for modifiers: [String]) -> UInt32 {
-        let mods = modifiers.map { $0.lowercased() }
+        let mods = Set(modifiers.map { $0.lowercased() })
 
         var flags = 0
 
-        if mods.contains("shift") {
+        if !mods.intersection(Set(["⇧", "shift"])).isEmpty {
             flags |= shiftKey
         }
 
-        if mods.contains("ctrl") || mods.contains("control") {
+        if !mods.intersection(Set(["⌃", "ctrl", "control"])).isEmpty {
             flags |= controlKey
         }
 
-        if mods.contains("alt") || mods.contains("opt") || mods.contains("option") {
+        if !mods.intersection(Set(["⌥", "alt", "opt", "option"])).isEmpty {
             flags |= optionKey
         }
 
-        if mods.contains("cmd") || mods.contains("command") {
+        if !mods.intersection(Set(["⌘", "cmd", "command"])).isEmpty {
             flags |= cmdKey
         }
 
