@@ -1,7 +1,8 @@
-all: test
+format:
+	@swift-format format -r -i Sources
 
 lint:
-	swiftlint lint
+	@swift-format lint -r Sources
 
 format:
 	swiftformat Sources/**/* Tests/**/*
@@ -22,4 +23,5 @@ coverage:
 clean:
 	swift package clean
 
-.PHONY: all lint format test clean
+.DEFAULT_GOAL := test
+.PHONY: format lint test coverage clean
