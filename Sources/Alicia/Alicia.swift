@@ -1,152 +1,154 @@
 import Carbon
 
 public enum Alicia {
-    final class ShortcutBox {
-        let identifier: UUID
+  final class ShortcutBox {
+    let identifier: UUID
 
-        var shortcut: Shortcut?
-        let carbonHotKeyID: UInt32
+    var shortcut: Shortcut?
+    let carbonHotKeyID: UInt32
 
-        var carbonEventHotKey: EventHotKeyRef?
+    var carbonEventHotKey: EventHotKeyRef?
 
-        init(shortcut: Shortcut, carbonHotKeyID: UInt32) {
-            identifier = shortcut.identifier
-            self.shortcut = shortcut
-            self.carbonHotKeyID = carbonHotKeyID
-        }
+    init(shortcut: Shortcut, carbonHotKeyID: UInt32) {
+      identifier = shortcut.identifier
+      self.shortcut = shortcut
+      self.carbonHotKeyID = carbonHotKeyID
+    }
+  }
+
+  private static let signature = "alca".utf16.reduce(0) { ($0 << 8) + OSType($1) }
+
+  private static var shortcuts = [UInt32: ShortcutBox]()
+  private static var shortcutsCount: UInt32 = 0
+
+  private static var eventHandler: EventHandlerRef?
+
+  static func handleCarbonEvent(_ event: EventRef?) -> OSStatus {
+    guard let event = event else {
+      return OSStatus(eventNotHandledErr)
     }
 
-    private static let signature = "alca".utf16.reduce(0) { ($0 << 8) + OSType($1) }
+    var hotKeyID = EventHotKeyID()
 
-    private static var shortcuts = [UInt32: ShortcutBox]()
-    private static var shortcutsCount: UInt32 = 0
+    let err = GetEventParameter(
+      event,
+      UInt32(kEventParamDirectObject),
+      UInt32(typeEventHotKeyID),
+      nil,
+      MemoryLayout<EventHotKeyID>.size,
+      nil,
+      &hotKeyID
+    )
 
-    private static var eventHandler: EventHandlerRef?
-
-    static func handleCarbonEvent(_ event: EventRef?) -> OSStatus {
-        guard let event = event else {
-            return OSStatus(eventNotHandledErr)
-        }
-
-        var hotKeyID = EventHotKeyID()
-
-        let err = GetEventParameter(
-            event,
-            UInt32(kEventParamDirectObject),
-            UInt32(typeEventHotKeyID),
-            nil,
-            MemoryLayout<EventHotKeyID>.size,
-            nil,
-            &hotKeyID
-        )
-
-        if err != noErr {
-            return err
-        }
-
-        guard hotKeyID.signature == signature, let shortcut = shortcut(for: hotKeyID.id) else {
-            return OSStatus(eventNotHandledErr)
-        }
-
-        shortcut.handler()
-
-        return noErr
+    if err != noErr {
+      return err
     }
 
-    public static func register(shortcut: Shortcut) {
-        if shortcuts.values.contains(where: { $0.identifier == shortcut.identifier }) {
-            return
-        }
-
-        shortcutsCount += 1
-
-        let box = ShortcutBox(shortcut: shortcut, carbonHotKeyID: shortcutsCount)
-        shortcuts[box.carbonHotKeyID] = box
-
-        guard let keyCode = shortcut.keyCode, let keyModifiers = shortcut.modifierFlags else {
-            return
-        }
-
-        let keyID = EventHotKeyID(signature: signature, id: box.carbonHotKeyID)
-        var eventHotKeyRef: EventHotKeyRef?
-
-        let registerErr = RegisterEventHotKey(
-            keyCode,
-            keyModifiers,
-            keyID,
-            GetEventDispatcherTarget(),
-            0,
-            &eventHotKeyRef
-        )
-
-        guard registerErr == noErr, eventHotKeyRef != nil else {
-            return
-        }
-
-        box.carbonEventHotKey = eventHotKeyRef
+    guard hotKeyID.signature == signature, let shortcut = shortcut(for: hotKeyID.id) else {
+      return OSStatus(eventNotHandledErr)
     }
 
-    public static func register(shortcuts: [Shortcut]) {
-        shortcuts.forEach { self.register(shortcut: $0) }
+    shortcut.handler()
+
+    return noErr
+  }
+
+  public static func register(shortcut: Shortcut) {
+    if shortcuts.values.contains(where: { $0.identifier == shortcut.identifier }) {
+      return
     }
 
-    public static func unregister(shortcut: Shortcut) {
-        guard let box = box(for: shortcut) else {
-            return
-        }
+    shortcutsCount += 1
 
-        UnregisterEventHotKey(box.carbonEventHotKey)
+    let box = ShortcutBox(shortcut: shortcut, carbonHotKeyID: shortcutsCount)
+    shortcuts[box.carbonHotKeyID] = box
 
-        box.shortcut = nil
-        shortcuts.removeValue(forKey: box.carbonHotKeyID)
+    guard let keyCode = shortcut.keyCode, let keyModifiers = shortcut.modifierFlags else {
+      return
     }
 
-    public static func reset() {
-        shortcuts.forEach { _, box in
-            guard let shortcut = box.shortcut else {
-                return
-            }
+    let keyID = EventHotKeyID(signature: signature, id: box.carbonHotKeyID)
+    var eventHotKeyRef: EventHotKeyRef?
 
-            self.unregister(shortcut: shortcut)
-        }
+    let registerErr = RegisterEventHotKey(
+      keyCode,
+      keyModifiers,
+      keyID,
+      GetEventDispatcherTarget(),
+      0,
+      &eventHotKeyRef
+    )
+
+    guard registerErr == noErr, eventHotKeyRef != nil else {
+      return
     }
 
-    public static func start() {
-        if shortcutsCount == 0 || eventHandler != nil {
-            return
-        }
+    box.carbonEventHotKey = eventHotKeyRef
+  }
 
-        let eventSpec = [
-            EventTypeSpec(eventClass: OSType(kEventClassKeyboard), eventKind: UInt32(kEventHotKeyPressed)),
-        ]
+  public static func register(shortcuts: [Shortcut]) {
+    for shortcut in shortcuts {
+      self.register(shortcut: shortcut)
+    }
+  }
 
-        InstallEventHandler(GetEventDispatcherTarget(), shortcutEventHandler, 1, eventSpec, nil, &eventHandler)
+  public static func unregister(shortcut: Shortcut) {
+    guard let box = box(for: shortcut) else {
+      return
     }
 
-    public static func stop() {
-        if eventHandler != nil {
-            RemoveEventHandler(eventHandler)
-        }
+    UnregisterEventHotKey(box.carbonEventHotKey)
+
+    box.shortcut = nil
+    shortcuts.removeValue(forKey: box.carbonHotKeyID)
+  }
+
+  public static func reset() {
+    for (_, box) in shortcuts {
+      guard let shortcut = box.shortcut else {
+        continue
+      }
+
+      self.unregister(shortcut: shortcut)
+    }
+  }
+
+  public static func start() {
+    if shortcutsCount == 0 || eventHandler != nil {
+      return
     }
 
-    private static func shortcut(for id: UInt32) -> Shortcut? {
-        if let shortcut = shortcuts[id]?.shortcut {
-            return shortcut
-        }
+    let eventSpec = [
+      EventTypeSpec(eventClass: OSType(kEventClassKeyboard), eventKind: UInt32(kEventHotKeyPressed))
+    ]
 
-        shortcuts.removeValue(forKey: id)
-        return nil
+    InstallEventHandler(GetEventDispatcherTarget(), shortcutEventHandler, 1, eventSpec, nil, &eventHandler)
+  }
+
+  public static func stop() {
+    if eventHandler != nil {
+      RemoveEventHandler(eventHandler)
+    }
+  }
+
+  private static func shortcut(for id: UInt32) -> Shortcut? {
+    if let shortcut = shortcuts[id]?.shortcut {
+      return shortcut
     }
 
-    private static func box(for shortcut: Shortcut) -> ShortcutBox? {
-        for box in shortcuts.values where box.identifier == shortcut.identifier {
-            return box
-        }
+    shortcuts.removeValue(forKey: id)
+    return nil
+  }
 
-        return nil
+  private static func box(for shortcut: Shortcut) -> ShortcutBox? {
+    for box in shortcuts.values where box.identifier == shortcut.identifier {
+      return box
     }
+
+    return nil
+  }
 }
 
 private func shortcutEventHandler(_: EventHandlerCallRef?, event: EventRef?, _: UnsafeMutableRawPointer?) -> OSStatus {
-    Alicia.handleCarbonEvent(event)
+  Alicia.handleCarbonEvent(event)
 }
