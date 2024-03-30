@@ -4,9 +4,6 @@ format:
 lint:
 	@swift-format lint -r Sources
 
-format:
-	swiftformat Sources/**/* Tests/**/*
-
 test:
 	swift test --parallel --enable-code-coverage
 
