@@ -10,6 +10,12 @@ adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
 
+## [2.0.5] - 2024-03-30
+
+### Changed
+
+- Refactor `.forEach` loops to use `for in`
+
 ## [2.0.3] - 2022-10-17
 
 ### Added
