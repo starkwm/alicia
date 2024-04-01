@@ -14,19 +14,19 @@ public enum Modifier {
 
     var flags = 0
 
-    if !mods.intersection(Set(["⇧", "shift"])).isEmpty {
+    if !mods.intersection(Set(["shift"])).isEmpty {
       flags |= shiftKey
     }
 
-    if !mods.intersection(Set(["⌃", "ctrl", "control"])).isEmpty {
+    if !mods.intersection(Set(["ctrl", "control"])).isEmpty {
       flags |= controlKey
     }
 
-    if !mods.intersection(Set(["⌥", "alt", "opt", "option"])).isEmpty {
+    if !mods.intersection(Set(["alt", "opt", "option"])).isEmpty {
       flags |= optionKey
     }
 
-    if !mods.intersection(Set(["⌘", "cmd", "command"])).isEmpty {
+    if !mods.intersection(Set(["cmd", "command"])).isEmpty {
       flags |= cmdKey
     }
 
