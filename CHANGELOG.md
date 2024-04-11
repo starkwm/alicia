@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.1] - 2024-04-11
+
+### Fixed
+
+- Fixed being able to call `start` after calling `stop` to restart Alicia
+
 ## [3.0.0] - 2024-04-01
 
 ### Removed
