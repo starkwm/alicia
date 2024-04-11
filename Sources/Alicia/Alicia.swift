@@ -128,6 +128,7 @@ public enum Alicia {
   public static func stop() {
     if eventHandler != nil {
       RemoveEventHandler(eventHandler)
+      eventHandler = nil
     }
   }
 
