@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Refactored `.forEach` calls to `for..in` loops
+
 ## [3.0.1] - 2024-04-11
 
 ### Fixed

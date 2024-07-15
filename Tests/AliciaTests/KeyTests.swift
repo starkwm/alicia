@@ -38,7 +38,7 @@ final class KeyTests: XCTestCase {
   }
 
   func testKeyCodeRelocatableDigits() {
-    [
+    let tests = [
       "0": kVK_ANSI_0,
       "1": kVK_ANSI_1,
       "2": kVK_ANSI_2,
@@ -49,13 +49,15 @@ final class KeyTests: XCTestCase {
       "7": kVK_ANSI_7,
       "8": kVK_ANSI_8,
       "9": kVK_ANSI_9,
-    ].forEach { key, val in
+    ]
+
+    for (key, val) in tests {
       XCTAssertEqual(Key.code(for: key), UInt32(val))
     }
   }
 
   func testKeyCodeRelocatableOthers() {
-    [
+    let tests = [
       "`": kVK_ANSI_Grave,
       "-": kVK_ANSI_Minus,
       "=": kVK_ANSI_Equal,
@@ -67,13 +69,15 @@ final class KeyTests: XCTestCase {
       ",": kVK_ANSI_Comma,
       ".": kVK_ANSI_Period,
       "/": kVK_ANSI_Slash,
-    ].forEach { key, val in
+    ]
+
+    for (key, val) in tests {
       XCTAssertEqual(Key.code(for: key), UInt32(val))
     }
   }
 
   func testKeyCodeNonRelocatable() {
-    [
+    let tests = [
       "space": kVK_Space,
       "tab": kVK_Tab,
       "return": kVK_Return,
@@ -131,17 +135,21 @@ final class KeyTests: XCTestCase {
       "comma": kVK_ANSI_Comma,
       "slash": kVK_ANSI_Slash,
       "forwardslash": kVK_ANSI_Slash,
-    ].forEach { key, val in
+    ]
+
+    for (key, val) in tests {
       XCTAssertEqual(Key.code(for: key), UInt32(val))
     }
   }
 
   func testKeyCodeCaseInsensitivity() {
-    [
+    let tests = [
       "spACe": UInt32(kVK_Space),
       "TAB": UInt32(kVK_Tab),
       "EScApE": UInt32(kVK_Escape),
-    ].forEach { key, val in
+    ]
+
+    for (key, val) in tests {
       XCTAssertEqual(Key.code(for: key), val)
     }
   }
