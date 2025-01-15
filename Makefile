@@ -1,8 +1,8 @@
 format:
-	@swift-format format -r -i Sources Tests
+	@swift-format format -r -i Sources Tests Package.swift
 
 lint:
-	@swift-format lint -r Sources Tests
+	@swift-format lint -r Sources Tests Package.swift
 
 test:
 	swift test --parallel --enable-code-coverage
