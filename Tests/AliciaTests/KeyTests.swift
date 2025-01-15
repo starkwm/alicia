@@ -5,7 +5,7 @@ import XCTest
 
 final class KeyTests: XCTestCase {
   func testKeyCodeRelocatableAlphas() {
-    [
+    let tests = [
       "a": kVK_ANSI_A,
       "b": kVK_ANSI_B,
       "c": kVK_ANSI_C,
@@ -32,7 +32,9 @@ final class KeyTests: XCTestCase {
       "x": kVK_ANSI_X,
       "y": kVK_ANSI_Y,
       "z": kVK_ANSI_Z,
-    ].forEach { key, val in
+    ]
+
+    for (key, val) in tests {
       XCTAssertEqual(Key.code(for: key), UInt32(val))
     }
   }
